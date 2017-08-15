@@ -17,9 +17,28 @@ class Container
         $this->s[$k] = $c;
     }
 
+    public function getContainer()
+    {
+        return $this->s;
+    }
+
     function __get($k)
     {
-        return $this->s[$k]($this);
+        if (!isset($this->s[$k])) {
+            $this->createObject($k);
+        }
+        return $this->s[$k];
+    }
+
+    function createObject($k)
+    {
+        $this->s[$k] = new $k();
+    }
+
+    function getRequest()
+    {
+        $className = Request::class;
+        return $this->$className;
     }
 
 }

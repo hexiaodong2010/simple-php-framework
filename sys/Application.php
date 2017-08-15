@@ -7,7 +7,7 @@ namespace sys;
  *
  * @author hexd@baicaiqiche.com
  */
-class Application
+class Application extends Container
 {
 
     private $_config = [];
@@ -22,6 +22,7 @@ class Application
         }
     }
 
+
     public function __call($name, $arguments)
     {
         return call_user_func(function ($arguments, $methodName) {
@@ -32,7 +33,16 @@ class Application
 
     public function run()
     {
-        return $this;
+        try {
+            $response = $this->handleRequest($this->getRequest());
+        } catch (\Exception $e) {
+
+        }
+    }
+
+    public function handleRequest(Request $request)
+    {
+        $request->resolve($this);
     }
 
 }

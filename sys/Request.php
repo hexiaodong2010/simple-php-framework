@@ -9,4 +9,11 @@ namespace sys;
  */
 class Request
 {
+    public function resolve()
+    {
+    }
+
+    public function getPath()
+    {
+    }
 }
